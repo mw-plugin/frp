@@ -34,8 +34,14 @@ fi
 
 Install_Plugin()
 {
-
 	echo '正在安装脚本文件...' > $install_tmp
+	wget -O /tmp/frp.tar.gz https://github.com/fatedier/frp/releases/download/v0.44.0/frp_0.44.0_linux_amd64.tar.gz
+	cd /tmp && tar -zxvf /tmp/frp.tar.gz
+	mkdir /usr/local/frp
+	mv /tmp/frp_0.44.0_linux_amd64/* /usr/local/frp
+	rm -rf /tmp/frp.tar.gz
+	rm -rf /tmp/frp_0.44.0_linux_amd64
+	cp /www/server/mdserver-web/plugins/frpc/frp.service /usr/lib/systemd/system/frp.service
 	mkdir -p $serverPath/frpc
 	echo '0.1' > $serverPath/frpc/version.pl
 	echo '安装完成' > $install_tmp
@@ -44,6 +50,9 @@ Install_Plugin()
 Uninstall_Plugin()
 {
 	rm -rf $serverPath/frpc
+	systemctl stop frp
+	rm -rf /usr/lib/systemd/system/frp.service
+	rm -rf /usr/local/frp
 	echo "Uninstall_sphinx" > $install_tmp
 }
 
