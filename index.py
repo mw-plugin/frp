@@ -10,7 +10,7 @@ import subprocess
 
 
 def getPluginName():
-    return 'simple-plugin'
+    return 'frpc'
 
 
 def status():

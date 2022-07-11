@@ -41,7 +41,7 @@ Install_Plugin()
 	mv /tmp/frp_0.44.0_linux_amd64/* /usr/local/frp
 	rm -rf /tmp/frp.tar.gz
 	rm -rf /tmp/frp_0.44.0_linux_amd64
-	cp /www/server/mdserver-web/plugins/frpc/frp.service /usr/lib/systemd/system/frp.service
+	cp /www/server/mdserver-web/plugins/frpc/frps.service /usr/lib/systemd/system/frps.service
 	mkdir -p $serverPath/frpc
 	echo '0.1' > $serverPath/frpc/version.pl
 	echo '安装完成' > $install_tmp
@@ -51,8 +51,9 @@ Uninstall_Plugin()
 {
 	rm -rf $serverPath/frpc
 	systemctl stop frp
-	rm -rf /usr/lib/systemd/system/frp.service
+	rm -rf /usr/lib/systemd/system/frps.service
 	rm -rf /usr/local/frp
+	systemctl daemon-reload
 	echo "Uninstall_sphinx" > $install_tmp
 }
 
