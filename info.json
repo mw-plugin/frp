@@ -1,0 +1,18 @@
+{
+	"sort": 7,
+	"ps": "frpc",
+	"name": "frpc",
+	"title": "frpc",
+	"shell": "install.sh",
+	"versions":["0.1"],
+	"updates":["0.1"],
+	"tip": "soft",
+	"checks": "server/frpc",
+	"path": "server/frpc",
+	"display": 1,
+	"author": "DDSRem",
+	"date": "2022-07-11",
+	"home": "https://github.com/mw-plugin/frpc",
+	"type": 0,
+	"pid": "5"
+}
