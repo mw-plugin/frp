@@ -5,4 +5,4 @@ server_port = 7000
 
 [web]
 type = http
-local_port = 8200
+local_port = 7200
