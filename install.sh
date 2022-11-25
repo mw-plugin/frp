@@ -14,47 +14,55 @@ install_tmp=${rootPath}/tmp/mw_install.pl
 sysName=`uname`
 echo "use system: ${sysName}"
 
-if [ ${sysName} == "Darwin" ]; then
-	OSNAME='macos'
-elif grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
-	OSNAME='centos'
-elif grep -Eqi "Fedora" /etc/issue || grep -Eq "Fedora" /etc/*-release; then
-	OSNAME='fedora'
-elif grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/*-release; then
-	OSNAME='debian'
-elif grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
-	OSNAME='ubuntu'
-elif grep -Eqi "Raspbian" /etc/issue || grep -Eq "Raspbian" /etc/*-release; then
-	OSNAME='raspbian'
-else
-	OSNAME='unknow'
-fi
+
+bash ${rootPath}/scripts/getos.sh
+OSNAME=`cat ${rootPath}/data/osname.pl`
+OSNAME_ID=`cat /etc/*-release | grep VERSION_ID | awk -F = '{print $2}' | awk -F "\"" '{print $2}'`
 
 
+VERSION=0.44.0
 
 Install_Plugin()
 {
 	echo '正在安装脚本文件...' > $install_tmp
-	wget -O /tmp/frp.tar.gz https://github.com/fatedier/frp/releases/download/v0.44.0/frp_0.44.0_linux_amd64.tar.gz
-	cd /tmp && tar -zxvf /tmp/frp.tar.gz
-	mkdir /usr/local/frp
-	mv /tmp/frp_0.44.0_linux_amd64/* /usr/local/frp
-	rm -rf /tmp/frp.tar.gz
-	rm -rf /tmp/frp_0.44.0_linux_amd64
-	cp /www/server/mdserver-web/plugins/frpc/frps.service /usr/lib/systemd/system/frps.service
+
+	APP_DIR=${serverPath}/source/frpc
+
 	mkdir -p $serverPath/frpc
-	echo '0.1' > $serverPath/frpc/version.pl
-	echo '安装完成' > $install_tmp
+	mkdir -p $APP_DIR
+
+
+	wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
+	cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
+	
+
+	mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frpc
+
+	# rm -rf $APP_DIR/frp.tar.gz
+	# rm -rf $APP_DIR/frp_${VERSION}_linux_amd64
+
+	echo ${VERSION} > $serverPath/frpc/version.pl
+	echo 'install frpc' > $install_tmp
 }
+
+serDir=/usr/lib/systemd/system
+if [ ! -d $serDir ];then
+	serDir=/lib/systemd/system
+fi
 
 Uninstall_Plugin()
 {
 	rm -rf $serverPath/frpc
-	systemctl stop frp
-	rm -rf /usr/lib/systemd/system/frps.service
-	rm -rf /usr/local/frp
-	systemctl daemon-reload
-	echo "Uninstall_sphinx" > $install_tmp
+
+	if [ ! -d $serDir ];then
+		echo "pass"
+	else
+		systemctl stop frpc
+	  	rm -rf $serDir/frpc.service
+	  	systemctl daemon-reload
+	fi
+
+	echo "Uninstall_frpc" > $install_tmp
 }
 
 action=$1

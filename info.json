@@ -2,7 +2,7 @@
 	"sort": 7,
 	"ps": "frpc",
 	"name": "frpc",
-	"title": "frpc",
+	"title": "内网穿透服务",
 	"shell": "install.sh",
 	"versions":["0.1"],
 	"updates":["0.1"],
@@ -10,9 +10,10 @@
 	"checks": "server/frpc",
 	"path": "server/frpc",
 	"display": 1,
-	"author": "DDSRem",
+	"author": "DDSRem,midoks",
 	"date": "2022-07-11",
 	"home": "https://github.com/mw-plugin/frpc",
+	"src_home": "https://github.com/fatedier/frp",
 	"type": 0,
 	"pid": "5"
 }
