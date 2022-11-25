@@ -29,7 +29,6 @@ def getServerDir():
 
 
 def status():
-    def status():
     data = mw.execShell(
         "ps -ef|grep frp |grep -v grep | grep -v python | awk '{print $2}'")
     if data[0] == '':
