@@ -69,30 +69,45 @@ def ftOp(method):
 
 
 def start():
-    return 'ok'
+    return ftOp('start')
 
 
 def stop():
-    return 'ok'
+    return ftOp('stop')
 
 
 def restart():
-    return 'ok'
+    return ftOp('restart')
 
 
 def reload():
+    return ftOp('reload')
+
+
+def initd_status(self):
+    if mw.isAppleSystem():
+        return "Apple Computer does not support"
+
+    cmd = 'systemctl status frpc | grep loaded | grep "enabled;"'
+    data = mw.execShell(cmd)
+    if data[0] == '':
+        return 'fail'
     return 'ok'
 
 
-def initdStatus():
+def initd_install(self):
+    if mw.isAppleSystem():
+        return "Apple Computer does not support"
+
+    mw.execShell('systemctl enable frpc')
     return 'ok'
 
 
-def initdInstall():
-    return 'ok'
+def initd_uinstall(self):
+    if mw.isAppleSystem():
+        return "Apple Computer does not support"
 
-
-def initdUinstall():
+    mw.execShell('systemctl disable frpc')
     return 'ok'
 
 if __name__ == "__main__":
