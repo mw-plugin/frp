@@ -84,7 +84,7 @@ def reload():
     return ftOp('reload')
 
 
-def initdStatus(self):
+def initdStatus():
     if mw.isAppleSystem():
         return "Apple Computer does not support"
 
@@ -95,7 +95,7 @@ def initdStatus(self):
     return 'ok'
 
 
-def initdInstall(self):
+def initdInstall():
     if mw.isAppleSystem():
         return "Apple Computer does not support"
 
@@ -103,7 +103,7 @@ def initdInstall(self):
     return 'ok'
 
 
-def initdUinstall(self):
+def initdUinstall():
     if mw.isAppleSystem():
         return "Apple Computer does not support"
 
