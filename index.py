@@ -57,6 +57,15 @@ def initDreplace():
         mw.writeFile(systemService, se_content)
         mw.execShell('systemctl daemon-reload')
 
+    systemService = systemDir + '/frps.service'
+    systemServiceTpl = getPluginDir() + '/init.d/frps.service.tpl'
+    if os.path.exists(systemDir) and not os.path.exists(systemService):
+        service_path = mw.getServerDir()
+        se_content = mw.readFile(systemServiceTpl)
+        se_content = se_content.replace('{$SERVER_PATH}', service_path)
+        mw.writeFile(systemService, se_content)
+        mw.execShell('systemctl daemon-reload')
+
 
 def ftOp(method):
     if mw.isAppleSystem():
