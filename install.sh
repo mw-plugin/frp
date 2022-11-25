@@ -38,6 +38,7 @@ Install_Plugin()
 	mkdir -p $APP_DIR
 
 	rm -rf $serDir/frpc.service
+	rm -rf $serDir/frps.service
 
 
 	wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
@@ -49,18 +50,18 @@ Install_Plugin()
 	# rm -rf $APP_DIR/frp.tar.gz
 	# rm -rf $APP_DIR/frp_${VERSION}_linux_amd64
 
-	echo ${VERSION} > $serverPath/frpc/version.pl
+	echo ${VERSION} > $serverPath/frp/version.pl
 	echo 'install frpc' > $install_tmp
 
 	#初始化 
-	cd ${rootPath} && python3 ${rootPath}/plugins/frpc/index.py start ${type}
-	cd ${rootPath} && python3 ${rootPath}/plugins/frpc/index.py initd_install ${type}
+	cd ${rootPath} && python3 ${rootPath}/plugins/frp/index.py start ${type}
+	cd ${rootPath} && python3 ${rootPath}/plugins/frp/index.py initd_install ${type}
 }
 
 
 Uninstall_Plugin()
 {
-	rm -rf $serverPath/frpc
+	rm -rf $serverPath/frp
 
 	if [ ! -d $serDir ];then
 		echo "pass"

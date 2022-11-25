@@ -6,13 +6,4 @@ export PATH
 curPath=`pwd`
 rootPath=$(dirname "$curPath")
 
-
-wget -O /tmp/mw_plugin.zip https://github.com/mw-plugin/frpc/archive/refs/heads/main.zip
-cd /tmp && unzip /tmp/mw_plugin.zip 
-
-mkdir -p /www/server/mdserver-web/plugins/frpc
-cp -rf  /tmp/frpc-main/* /www/server/mdserver-web/plugins/frpc
-
-
-rm -rf /tmp/mw_plugin.zip
-rm -rf /tmp/frpc-main
+cd /www/server/mdserver-web/plugins && rm -rf frp && git clone https://github.com/mw-plugin/frp && cd frpc && rm -rf .git && cd /www/server/mdserver-web/plugins/frp && bash install.sh install 1.0

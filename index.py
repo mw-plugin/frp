@@ -17,7 +17,7 @@ if mw.isAppleSystem():
 
 
 def getPluginName():
-    return 'frpc'
+    return 'frp'
 
 
 def getPluginDir():
@@ -37,8 +37,12 @@ def status():
     return 'start'
 
 
-def conf():
+def confClient():
     return getServerDir() + "/frpc.ini"
+
+
+def confServer():
+    return getServerDir() + "/frps.ini"
 
 
 def initDreplace():

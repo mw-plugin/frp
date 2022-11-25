@@ -4,7 +4,7 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=simple
-ExecStart={$SERVER_PATH}/frp/frpc -c {$SERVER_PATH}/frp/frpc.ini
+ExecStart={$SERVER_PATH}/frp/frps -c {$SERVER_PATH}/frp/frps.ini
 KillSignal=SIGQUIT
 TimeoutStopSec=5
 KillMode=process
