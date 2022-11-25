@@ -127,6 +127,45 @@ def initdUinstall():
     mw.execShell('systemctl disable frpc')
     return 'ok'
 
+
+def readConfigTpl():
+    args = getArgs()
+    data = checkArgs(args, ['file'])
+    if not data[0]:
+        return data[1]
+
+    content = mw.readFile(args['file'])
+    content = contentReplace(content)
+    return mw.returnJson(True, 'ok', content)
+
+
+def frpServerCfg():
+    return getServerDir() + "/frps.ini"
+
+
+def frpServerCfgTpl():
+    path = getPluginDir() + '/server_cfg'
+    pathFile = os.listdir(path)
+    tmp = []
+    for one in pathFile:
+        file = path + '/' + one
+        tmp.append(file)
+    return mw.getJson(tmp)
+
+
+def frpClientCfg():
+    return getServerDir() + "/frps.ini"
+
+
+def frpClientCfgTpl():
+    path = getPluginDir() + '/client_cfg'
+    pathFile = os.listdir(path)
+    tmp = []
+    for one in pathFile:
+        file = path + '/' + one
+        tmp.append(file)
+    return mw.getJson(tmp)
+
 if __name__ == "__main__":
     func = sys.argv[1]
     if func == 'status':
@@ -147,5 +186,15 @@ if __name__ == "__main__":
         print(initdUinstall())
     elif func == 'conf':
         print(conf())
+    elif func == 'read_config_tpl':
+        print(readConfigTpl())
+    elif func == 'frp_server':
+        print(frpServerCfg())
+    elif func == 'frp_server_tpl':
+        print(frpServerCfgTpl())
+    elif func == 'frp_client':
+        print(frpClientCfg())
+    elif func == 'frp_client_tpl':
+        print(frpClientCfgTpl())
     else:
         print('error')
