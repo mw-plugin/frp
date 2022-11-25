@@ -32,9 +32,9 @@ Install_Plugin()
 {
 	echo '正在安装脚本文件...' > $install_tmp
 
-	APP_DIR=${serverPath}/source/frpc
+	APP_DIR=${serverPath}/source/frp
 
-	mkdir -p $serverPath/frpc
+	mkdir -p $serverPath/frp
 	mkdir -p $APP_DIR
 
 	rm -rf $serDir/frpc.service
@@ -45,7 +45,7 @@ Install_Plugin()
 	cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
 	
 
-	mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frpc
+	mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frp
 
 	# rm -rf $APP_DIR/frp.tar.gz
 	# rm -rf $APP_DIR/frp_${VERSION}_linux_amd64
