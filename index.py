@@ -54,6 +54,20 @@ def confServer():
 
 
 def initDreplace():
+
+    initD_path = getServerDir() + '/init.d'
+    if not os.path.exists(initD_path):
+        os.mkdir(initD_path)
+    file_bin = initD_path + '/' + getPluginName()
+
+    # initd replace
+    if not os.path.exists(file_bin):
+        file_tpl = getPluginDir() + "/init.d/frp.service.tpl"
+        content = mw.readFile(file_tpl)
+        content = contentReplace(content)
+        mw.writeFile(file_bin, content)
+        mw.execShell('chmod +x ' + file_bin)
+
     # systemd
     systemDir = mw.systemdCfgDir()
     service_path = mw.getServerDir()
@@ -75,10 +89,15 @@ def initDreplace():
 
 
 def ftOp(method):
-    if mw.isAppleSystem():
-        return 'fail'
 
     initDreplace()
+
+    if mw.isAppleSystem():
+        cmd = getServerDir() + '/init.d/frp'
+        data = mw.execShell(cmd)
+        if data[1] != '':
+            return 'fail'
+        return 'ok'
 
     cmd = 'systemctl ' + method + ' frps'
     data = mw.execShell(cmd)
