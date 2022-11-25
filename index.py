@@ -37,6 +37,14 @@ def status():
     return 'start'
 
 
+def contentReplace(content):
+    service_path = mw.getServerDir()
+    content = content.replace('{$ROOT_PATH}', mw.getRootDir())
+    content = content.replace('{$SERVER_PATH}', service_path)
+    content = content.replace('{$SERVER_APP}', service_path + '/frp')
+    return content
+
+
 def confClient():
     return getServerDir() + "/frpc.ini"
 
