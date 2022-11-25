@@ -93,7 +93,7 @@ def ftOp(method):
     initDreplace()
 
     if mw.isAppleSystem():
-        cmd = getServerDir() + '/init.d/frp'
+        cmd = getServerDir() + '/init.d/frp ' + method + " &"
         data = mw.execShell(cmd)
         if data[1] != '':
             return 'fail'

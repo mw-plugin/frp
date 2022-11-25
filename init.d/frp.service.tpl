@@ -18,10 +18,11 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 app_file={$SERVER_PATH}
 
 app_start(){
+    cd $app_file/frp
 	isStart=`ps -ef|grep frps |grep -v grep | grep -v python | awk '{print $2}'`
 	if [ "$isStart" == '' ];then
         echo -e "Starting frps... \c"
-        $app_file/frp/frps -c $app_file/frp/frps.ini &
+        $app_file/frp/frps -c $app_file/frp/frps.ini > $app_file/frp/frps.log 2>&1 &
         echo -e "\033[32mdone\033[0m"
     else
         echo "Starting frps already running"
@@ -30,7 +31,7 @@ app_start(){
     isStart=`ps -ef|grep frpc |grep -v grep | grep -v python | awk '{print $2}'`
     if [ "$isStart" == '' ];then
         echo -e "Starting frpc... \c"
-        $app_file/frp/frpc -c $app_file/frp/frpc.ini &
+        $app_file/frp/frpc -c $app_file/frp/frpc.ini > $app_file/frp/frps.log 2>&1 &
         echo -e "\033[32mdone\033[0m"
     else
         echo "Starting frpc already running"
@@ -45,6 +46,7 @@ app_stop()
     do
         kill -9 $p &>/dev/null
     done
+    echo -e "\033[32mdone\033[0m"
 
     echo -e "Stopping frpc... \c";
     arr=`ps -ef|grep frpc |grep -v grep | grep -v python | awk '{print $2}'`
