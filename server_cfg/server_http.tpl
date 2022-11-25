@@ -1,6 +1,6 @@
 [common]
 bind_port = 7000
-
+vhost_http_port = 8080
 
 # frp管理后台端口，请按自己需求更改
 dashboard_port = 7500
