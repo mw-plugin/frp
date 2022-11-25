@@ -10,10 +10,7 @@ sysName=`uname`
 
 install_tmp=${rootPath}/tmp/mw_install.pl
 
-
-sysName=`uname`
 echo "use system: ${sysName}"
-
 
 bash ${rootPath}/scripts/getos.sh
 OSNAME=`cat ${rootPath}/data/osname.pl`
@@ -39,13 +36,17 @@ Install_Plugin()
 
 	rm -rf $serDir/frpc.service
 	rm -rf $serDir/frps.service
-
-
-	wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
-	cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
 	
 
-	mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frp
+	if [ "$OSNAME" == "macos" ];then
+		wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_darwin_amd64.tar.gz
+		cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
+		mv $APP_DIR/frp_${VERSION}_darwin_amd64/* $serverPath/frp
+	else
+		wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
+		cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
+		mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frp
+	fi
 
 	# rm -rf $APP_DIR/frp.tar.gz
 	# rm -rf $APP_DIR/frp_${VERSION}_linux_amd64
