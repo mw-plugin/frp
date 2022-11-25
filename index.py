@@ -154,7 +154,7 @@ def frpServerCfgTpl():
 
 
 def frpClientCfg():
-    return getServerDir() + "/frps.ini"
+    return getServerDir() + "/frpc.ini"
 
 
 def frpClientCfgTpl():
