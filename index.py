@@ -37,6 +37,10 @@ def status():
     return 'start'
 
 
+def conf():
+    return getServerDir() + "/frpc.ini"
+
+
 def initDreplace():
     # systemd
     systemDir = mw.systemdCfgDir()
@@ -108,6 +112,8 @@ if __name__ == "__main__":
     elif func == 'initd_install':
         print(initdInstall())
     elif func == 'initd_uninstall':
+        print(initdUinstall())
+    elif func == 'conf':
         print(initdUinstall())
     else:
         print('error')
