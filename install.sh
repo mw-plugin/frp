@@ -22,6 +22,12 @@ OSNAME_ID=`cat /etc/*-release | grep VERSION_ID | awk -F = '{print $2}' | awk -F
 
 VERSION=0.44.0
 
+
+serDir=/usr/lib/systemd/system
+if [ ! -d $serDir ];then
+	serDir=/lib/systemd/system
+fi
+
 Install_Plugin()
 {
 	echo '正在安装脚本文件...' > $install_tmp
@@ -30,6 +36,8 @@ Install_Plugin()
 
 	mkdir -p $serverPath/frpc
 	mkdir -p $APP_DIR
+
+	rm -rf $serDir/frpc.service
 
 
 	wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
@@ -43,12 +51,12 @@ Install_Plugin()
 
 	echo ${VERSION} > $serverPath/frpc/version.pl
 	echo 'install frpc' > $install_tmp
+
+	#初始化 
+	cd ${rootPath} && python3 ${rootPath}/plugins/frpc/index.py start ${type}
+	cd ${rootPath} && python3 ${rootPath}/plugins/frpc/index.py initd_install ${type}
 }
 
-serDir=/usr/lib/systemd/system
-if [ ! -d $serDir ];then
-	serDir=/lib/systemd/system
-fi
 
 Uninstall_Plugin()
 {
