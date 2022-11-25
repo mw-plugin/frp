@@ -72,7 +72,12 @@ def ftOp(method):
 
     initDreplace()
 
-    cmd = 'systemctl ' + method + ' ' + getPluginName()
+    cmd = 'systemctl ' + method + ' frps'
+    data = mw.execShell(cmd)
+    if data[1] != '':
+        return 'fail'
+
+    cmd = 'systemctl ' + method + ' frpc'
     data = mw.execShell(cmd)
     if data[1] != '':
         return 'fail'
