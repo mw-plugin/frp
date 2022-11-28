@@ -1,6 +1,6 @@
 {
 	"sort": 7,
-	"ps": "frp",
+	"ps": "frp内网穿透服务",
 	"name": "frp",
 	"title": "内网穿透服务",
 	"shell": "install.sh",
