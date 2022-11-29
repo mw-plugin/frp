@@ -39,11 +39,11 @@ Install_Plugin()
 	
 
 	if [ "$OSNAME" == "macos" ];then
-		wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_darwin_amd64.tar.gz
+		wget  --no-check-certificate -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_darwin_amd64.tar.gz
 		cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
 		mv $APP_DIR/frp_${VERSION}_darwin_amd64/* $serverPath/frp
 	else
-		wget -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
+		wget  --no-check-certificate -O $APP_DIR/frp.tar.gz https://github.com/fatedier/frp/releases/download/v${VERSION}/frp_${VERSION}_linux_amd64.tar.gz
 		cd $APP_DIR && tar -zxvf $APP_DIR/frp.tar.gz
 		mv $APP_DIR/frp_${VERSION}_linux_amd64/* $serverPath/frp
 	fi
